@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    image: postgres:16
+    container_name: rapido-postgres-db
+    restart: always
+    environment:
+      POSTGRES_DB: rapido_db
+      POSTGRES_USER: rapido_user
+      POSTGRES_PASSWORD: rapido_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - rapido_postgres_data:/var/lib/postgresql/data
+    networks:
+      - rapido-network
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: rapido-auth-service
+    restart: always
+    depends_on:
+      - postgres-db
+    environment:
+      SERVER_PORT: 8081
+      DB_HOST: postgres-db
+      DB_PORT: 5432
+      DB_NAME: rapido_db
+      DB_USERNAME: rapido_user
+      DB_PASSWORD: rapido_password
+    ports:
+      - "8081:8081"
+    networks:
+      - rapido-network
+
+volumes:
+  rapido_postgres_data:
+
+networks:
+  rapido-network:
+    driver: bridge
