@@ -1,29 +1,75 @@
-server:
-  port: ${SERVER_PORT:8081}
+version: '3.8'
 
-spring:
-  application:
-    name: auth-service
+services:
 
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:rapido_db}
-    username: ${DB_USERNAME:rapido_user}
-    password: ${DB_PASSWORD:rapido_password}
-    driver-class-name: org.postgresql.Driver
+  postgres:
+    image: postgres:16
+    container_name: rapido-postgres
+    environment:
+      POSTGRES_DB: rapido_db
+      POSTGRES_USER: rapido_user
+      POSTGRES_PASSWORD: rapido_pass
+    ports:
+      - "5432:5432"
 
-  jpa:
-    hibernate:
-      ddl-auto: update
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      DB_HOST: rapido-postgres
+      DB_PORT: 5432
+      DB_NAME: rapido_db
+      DB_USERNAME: rapido_user
+      DB_PASSWORD: rapido_pass
+    depends_on:
+      - postgres
 
-    show-sql: true
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
 
-    properties:
-      hibernate:
-        format_sql: true
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "8082:8082"
+    environment:
+      DB_HOST: rapido-postgres
+      DB_PORT: 5432
+      DB_NAME: rapido_db
+      DB_USERNAME: rapido_user
+      DB_PASSWORD: rapido_pass
+    depends_on:
+      - postgres
 
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  driver-service:
+    build: ./driver-service
+    container_name: driver-service
+    ports:
+      - "8083:8083"
+    environment:
+      DB_HOST: rapido-postgres
+      DB_PORT: 5432
+      DB_NAME: rapido_db
+      DB_USERNAME: rapido_user
+      DB_PASSWORD: rapido_pass
+    depends_on:
+      - postgres
 
-  security:
-    user:
-      name: admin
-      password: admin
+  ride-service:
+    build: ./ride-service
+    container_name: ride-service
+    ports:
+      - "8084:8084"
+    environment:
+      DB_HOST: rapido-postgres
+      DB_PORT: 5432
+      DB_NAME: rapido_db
+      DB_USERNAME: rapido_user
+      DB_PASSWORD: rapido_pass
+    depends_on:
+      - postgres
