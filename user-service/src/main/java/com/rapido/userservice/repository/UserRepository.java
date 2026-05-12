@@ -1,9 +1,10 @@
 package com.rapido.userservice.repository;
 
-import com.rapido.userservice.entity.User;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.rapido.userservice.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
