@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   postgres:
@@ -7,31 +5,15 @@ services:
     container_name: rapido-postgres
     environment:
       POSTGRES_DB: rapido_db
-      POSTGRES_USER: rapido_user
-      POSTGRES_PASSWORD: rapido_pass
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U rapido_user -d rapido_db"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
-
-  auth-service:
-    build: ./auth-service
-    container_name: auth-service
-    ports:
-      - "8081:8081"
-    environment:
-      DB_HOST: rapido-postgres
-      DB_PORT: 5432
-      DB_NAME: rapido_db
-      DB_USERNAME: rapido_user
-      DB_PASSWORD: rapido_pass
-    depends_on:
-      postgres:
-        condition: service_healthy
-    restart: on-failure
 
   api-gateway:
     build: ./api-gateway
@@ -39,37 +21,32 @@ services:
     ports:
       - "8080:8080"
 
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   user-service:
     build: ./user-service
     container_name: user-service
     ports:
       - "8082:8082"
-    environment:
-      DB_HOST: rapido-postgres
-      DB_PORT: 5432
-      DB_NAME: rapido_db
-      DB_USERNAME: postgres
-      DB_PASSWORD: Nagesh2425
     depends_on:
       postgres:
         condition: service_healthy
-    restart: on-failure
 
   driver-service:
     build: ./driver-service
     container_name: driver-service
     ports:
       - "8083:8083"
-    environment:
-      DB_HOST: rapido-postgres
-      DB_PORT: 5432
-      DB_NAME: rapido_db
-      DB_USERNAME: rapido_user
-      DB_PASSWORD: rapido_pass
     depends_on:
       postgres:
         condition: service_healthy
-    restart: on-failure
 
   ride-service:
     build: ./ride-service
@@ -77,12 +54,13 @@ services:
     ports:
       - "8084:8084"
     environment:
-      DB_HOST: rapido-postgres
-      DB_PORT: 5432
-      DB_NAME: rapido_db
-      DB_USERNAME: rapido_user
-      DB_PASSWORD: rapido_pass
+      SPRING_APPLICATION_NAME: ride-service
+      SERVER_PORT: 8084
+      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/rapido_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
     depends_on:
       postgres:
         condition: service_healthy
-    restart: on-failure
