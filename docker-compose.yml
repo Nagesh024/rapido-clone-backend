@@ -15,20 +15,43 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    image: redis:7
+    container_name: rapido-redis
+    ports:
+      - "6379:6379"
+
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
   api-gateway:
     build: ./api-gateway
     container_name: api-gateway
     ports:
       - "8080:8080"
+    depends_on:
+      - eureka-server
+      - auth-service
+      - notification-service
 
   auth-service:
     build: ./auth-service
     container_name: auth-service
     ports:
       - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/rapido_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
     depends_on:
       postgres:
         condition: service_healthy
+      eureka-server:
+        condition: service_started
 
   user-service:
     build: ./user-service
@@ -74,9 +97,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/rapido_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
     depends_on:
       postgres:
         condition: service_healthy
+      eureka-server:
+        condition: service_started
 
   payment-service:
     build: ./payment-service
