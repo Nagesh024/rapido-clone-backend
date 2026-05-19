@@ -2,40 +2,61 @@ services:
 
   postgres:
     image: postgres:16
+    restart: always
     container_name: rapido-postgres
     environment:
-      POSTGRES_DB: rapido_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:7
+    restart: always
     container_name: rapido-redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   rabbitmq:
     image: rabbitmq:management
+    restart: always
     container_name: rapido-rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   eureka-server:
     build: ./eureka-server
+    restart: always
     container_name: eureka-server
     ports:
       - "8761:8761"
 
   api-gateway:
     build: ./api-gateway
+    restart: always
     container_name: api-gateway
     ports:
       - "8080:8080"
@@ -46,13 +67,14 @@ services:
 
   auth-service:
     build: ./auth-service
+    restart: always
     container_name: auth-service
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/rapido_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
     depends_on:
       postgres:
@@ -62,6 +84,7 @@ services:
 
   user-service:
     build: ./user-service
+    restart: always
     container_name: user-service
     ports:
       - "8082:8082"
@@ -71,6 +94,7 @@ services:
 
   driver-service:
     build: ./driver-service
+    restart: always
     container_name: driver-service
     ports:
       - "8083:8083"
@@ -80,15 +104,16 @@ services:
 
   ride-service:
     build: ./ride-service
+    restart: always
     container_name: ride-service
     ports:
       - "8084:8084"
     environment:
       SPRING_APPLICATION_NAME: ride-service
       SERVER_PORT: 8084
-      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/rapido_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
     depends_on:
@@ -97,13 +122,14 @@ services:
 
   notification-service:
     build: ./notification-service
+    restart: always
     container_name: notification-service
     ports:
       - "8086:8086"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/rapido_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
     depends_on:
       postgres:
@@ -113,6 +139,7 @@ services:
 
   payment-service:
     build: ./payment-service
+    restart: always
     container_name: payment-service
     ports:
       - "8085:8085"
@@ -120,6 +147,11 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/rapido_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://rapido-postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+
+volumes:
+  postgres-data:
+  redis-data:
+  rabbitmq-data:
