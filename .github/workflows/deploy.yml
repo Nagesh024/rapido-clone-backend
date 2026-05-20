@@ -1,4 +1,4 @@
-name: Deploy To EC2
+name: Rapido CI/CD Deployment
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 Server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -22,4 +22,14 @@ jobs:
           script: |
             cd rapido-clone-backend
             git pull origin main
-            sudo docker compose up -d --build
+
+            sudo docker compose down
+            sudo docker system prune -f
+
+            sudo docker compose up -d postgres redis rabbitmq eureka-server api-gateway auth-service
+
+            sudo docker ps
+
+            curl -f http://localhost:8761 || exit 1
+            curl -f http://localhost:8080/health || exit 1
+            curl -f http://localhost:8081/health || exit 1
