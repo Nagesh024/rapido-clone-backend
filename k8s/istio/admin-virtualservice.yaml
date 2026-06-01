@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: admin-virtualservice
+  namespace: rapido-prod
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - admin-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /admin
+      fault:
+        delay:
+          percentage:
+            value: 50
+          fixedDelay: 3s
+      route:
+        - destination:
+            host: admin-service
+            subset: v1
+            port:
+              number: 80
+          weight: 100
