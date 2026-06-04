@@ -2,9 +2,10 @@ package com.rapido.rideservice.repository;
 
 import com.rapido.rideservice.entity.Ride;
 import com.rapido.rideservice.entity.RideStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RideRepository extends JpaRepository<Ride, Long> {
 

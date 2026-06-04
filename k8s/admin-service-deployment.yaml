@@ -1,22 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
   name: admin-service
   namespace: rapido-prod
-
 spec:
-  replicas: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-service
 
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
       maxSurge: 1
-
-  selector:
-    matchLabels:
-      app: admin-service
+      maxUnavailable: 1
 
   template:
     metadata:
@@ -26,10 +23,11 @@ spec:
     spec:
       containers:
         - name: admin-service
-          image: nginx
+          image: admin-service:otel
+          imagePullPolicy: IfNotPresent
 
           ports:
-            - containerPort: 80
+            - containerPort: 8088
 
           env:
             - name: DB_HOST
@@ -44,13 +42,13 @@ spec:
                   name: rapido-config
                   key: DB_PORT
 
-            - name: DB_USERNAME
+            - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: rapido-secret
                   key: DB_USERNAME
 
-            - name: DB_PASSWORD
+            - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: rapido-secret
@@ -62,25 +60,29 @@ spec:
                   name: rapido-secret
                   key: JWT_SECRET
 
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 10
-
+          # ✅ FIXED HEALTH CHECKS (VERY IMPORTANT)
           readinessProbe:
             httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
+              path: /actuator/health/readiness
+              port: 8088
+            initialDelaySeconds: 15
             periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8088
+            initialDelaySeconds: 25
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
 
           resources:
             requests:
-              memory: "128Mi"
               cpu: "100m"
-
+              memory: "128Mi"
             limits:
-              memory: "256Mi"
               cpu: "200m"
+              memory: "256Mi"
