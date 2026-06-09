@@ -8,9 +8,13 @@ services:
       - "9090:9090"
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
     container_name: rapido-grafana
     ports:
       - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped

@@ -1,20 +1,13 @@
 package com.rapido.paymentservice.service;
 
 import com.rapido.paymentservice.dto.PaymentResponse;
-import com.rapido.paymentservice.entity.DriverEarnings;
-import com.rapido.paymentservice.entity.PaymentStatus;
-import com.rapido.paymentservice.entity.PaymentTransaction;
-import com.rapido.paymentservice.entity.Wallet;
+import com.rapido.paymentservice.entity.*;
 import com.rapido.paymentservice.exception.PaymentException;
-import com.rapido.paymentservice.repository.DriverEarningsRepository;
-import com.rapido.paymentservice.repository.PaymentTransactionRepository;
-import com.rapido.paymentservice.repository.WalletRepository;
+import com.rapido.paymentservice.repository.*;
 import com.rapido.paymentservice.util.PaymentGatewaySimulator;
+import com.rapido.paymentservice.producer.PaymentEventProducer;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,37 +21,43 @@ public class PaymentService {
     private final PaymentTransactionRepository transactionRepository;
     private final DriverEarningsRepository driverEarningsRepository;
     private final PaymentGatewaySimulator paymentGatewaySimulator;
+    private final PaymentEventProducer paymentEventProducer;
 
-    public PaymentService(WalletRepository walletRepository,
-                          PaymentTransactionRepository transactionRepository,
-                          DriverEarningsRepository driverEarningsRepository,
-                          PaymentGatewaySimulator paymentGatewaySimulator) {
-
+    public PaymentService(
+            WalletRepository walletRepository,
+            PaymentTransactionRepository transactionRepository,
+            DriverEarningsRepository driverEarningsRepository,
+            PaymentGatewaySimulator paymentGatewaySimulator,
+            PaymentEventProducer paymentEventProducer
+    ) {
         this.walletRepository = walletRepository;
         this.transactionRepository = transactionRepository;
         this.driverEarningsRepository = driverEarningsRepository;
         this.paymentGatewaySimulator = paymentGatewaySimulator;
+        this.paymentEventProducer = paymentEventProducer;
     }
+
+    // =========================
+    // WALLET
+    // =========================
 
     public Wallet createWallet(Long userId) {
 
-        if (walletRepository.findByUserId(userId).isPresent()) {
-            return walletRepository.findByUserId(userId).get();
-        }
-
-        Wallet wallet = new Wallet();
-        wallet.setUserId(userId);
-        wallet.setBalance(0.0);
-        wallet.setActive(true);
-
-        return walletRepository.save(wallet);
+        return walletRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    Wallet wallet = new Wallet();
+                    wallet.setUserId(userId);
+                    wallet.setBalance(0.0);
+                    wallet.setActive(true);
+                    return walletRepository.save(wallet);
+                });
     }
 
     @Transactional
     public String topUpWallet(Long userId, Double amount) {
 
         if (amount == null || amount < 100) {
-            throw new PaymentException("Minimum top-up amount is 100");
+            throw new PaymentException("Minimum top-up is 100");
         }
 
         Wallet wallet = walletRepository.findByUserIdForUpdate(userId)
@@ -67,44 +66,59 @@ public class PaymentService {
         wallet.setBalance(wallet.getBalance() + amount);
         walletRepository.save(wallet);
 
-        return "Wallet Recharged Successfully";
+        return "Wallet Updated Successfully";
     }
 
     public Double getBalance(Long userId) {
 
-        Wallet wallet = walletRepository.findByUserId(userId)
-                .orElseThrow(() -> new PaymentException("Wallet not found"));
-
-        return wallet.getBalance();
+        return walletRepository.findByUserId(userId)
+                .orElseThrow(() -> new PaymentException("Wallet not found"))
+                .getBalance();
     }
+
+    // =========================
+    // PAYMENT CORE (SAGA START POINT)
+    // =========================
 
     @Transactional
     public PaymentResponse processRidePayment(Long userId, Long rideId) {
 
         if (transactionRepository.existsByRideIdAndStatus(rideId, PaymentStatus.SUCCESS)) {
-            throw new PaymentException("Payment already completed for this ride");
+            throw new PaymentException("Payment already done");
         }
 
         Double fare = fetchRideFare(rideId);
         Long driverId = fetchDriverIdForRide(rideId);
 
-        Wallet riderWallet = walletRepository.findByUserIdForUpdate(userId)
+        Wallet wallet = walletRepository.findByUserIdForUpdate(userId)
                 .orElseThrow(() -> new PaymentException("Wallet not found"));
 
-        if (riderWallet.getBalance() < fare) {
+        if (wallet.getBalance() < fare) {
             saveTransaction(rideId, userId, driverId, fare, PaymentStatus.FAILED);
-            throw new PaymentException("Insufficient wallet balance");
+            throw new PaymentException("Insufficient balance");
         }
 
-        boolean gatewaySuccess = paymentGatewaySimulator.processPayment();
+        // =========================
+        // PAYMENT GATEWAY CALL
+        // =========================
+        if (!paymentGatewaySimulator.processPayment()) {
 
-        if (!gatewaySuccess) {
             saveTransaction(rideId, userId, driverId, fare, PaymentStatus.FAILED);
-            throw new PaymentException("Payment gateway failed. Try again.");
+
+            // 🔥 SAGA COMPENSATION EVENT
+            paymentEventProducer.publishPaymentFailedEvent(
+                    rideId.toString(),
+                    driverId.toString()
+            );
+
+            throw new PaymentException("Gateway failed - Saga compensation triggered");
         }
 
-        riderWallet.setBalance(riderWallet.getBalance() - fare);
-        walletRepository.save(riderWallet);
+        // =========================
+        // SUCCESS FLOW
+        // =========================
+        wallet.setBalance(wallet.getBalance() - fare);
+        walletRepository.save(wallet);
 
         DriverEarnings earnings = driverEarningsRepository.findByDriverId(driverId)
                 .orElse(new DriverEarnings());
@@ -117,51 +131,45 @@ public class PaymentService {
         earnings.setTotalEarnings(earnings.getTotalEarnings() + fare);
         driverEarningsRepository.save(earnings);
 
-        PaymentTransaction transaction = saveTransaction(
-                rideId,
-                userId,
-                driverId,
-                fare,
-                PaymentStatus.SUCCESS
+        PaymentTransaction tx = saveTransaction(
+                rideId, userId, driverId, fare, PaymentStatus.SUCCESS
         );
 
-        PaymentResponse response = new PaymentResponse();
-        response.setRideId(rideId);
-        response.setPayerId(userId);
-        response.setDriverId(driverId);
-        response.setAmount(fare);
-        response.setStatus(PaymentStatus.SUCCESS.name());
-        response.setMessage("Payment Successful");
-        response.setTransactionReference(transaction.getTransactionReference());
-
-        return response;
+        return buildResponse(tx, fare);
     }
+
+    // =========================
+    // REFUND
+    // =========================
 
     @Transactional
     public String refundRide(Long rideId) {
 
-        PaymentTransaction transaction = transactionRepository
+        PaymentTransaction tx = transactionRepository
                 .findByRideIdAndStatus(rideId, PaymentStatus.SUCCESS)
-                .orElseThrow(() -> new PaymentException("Successful payment not found"));
+                .orElseThrow(() -> new PaymentException("No payment found"));
 
-        Wallet wallet = walletRepository.findByUserIdForUpdate(transaction.getPayerId())
+        Wallet wallet = walletRepository.findByUserIdForUpdate(tx.getPayerId())
                 .orElseThrow(() -> new PaymentException("Wallet not found"));
 
-        wallet.setBalance(wallet.getBalance() + transaction.getAmount());
+        wallet.setBalance(wallet.getBalance() + tx.getAmount());
         walletRepository.save(wallet);
 
-        DriverEarnings earnings = driverEarningsRepository
-                .findByDriverId(transaction.getDriverId())
+        DriverEarnings earnings = driverEarningsRepository.findByDriverId(tx.getDriverId())
                 .orElseThrow(() -> new PaymentException("Driver earnings not found"));
 
-        earnings.setTotalEarnings(earnings.getTotalEarnings() - transaction.getAmount());
+        earnings.setTotalEarnings(earnings.getTotalEarnings() - tx.getAmount());
         driverEarningsRepository.save(earnings);
 
-        transaction.setStatus(PaymentStatus.REFUNDED);
-        transactionRepository.save(transaction);
+        tx.setStatus(PaymentStatus.REFUNDED);
+        transactionRepository.save(tx);
 
-        return "Refund Processed Successfully";
+        return "Refund Successful";
     }
+
+    // =========================
+    // HISTORY
+    // =========================
 
     public Page<PaymentTransaction> getTransactionHistory(
             Long userId,
@@ -170,18 +178,16 @@ public class PaymentService {
             int size
     ) {
 
-        Pageable pageable = PageRequest.of(
-                page,
-                size,
-                Sort.by("createdAt").descending()
-        );
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
-        if (status == null) {
-            return transactionRepository.findByPayerId(userId, pageable);
-        }
-
-        return transactionRepository.findByPayerIdAndStatus(userId, status, pageable);
+        return (status == null)
+                ? transactionRepository.findByPayerId(userId, pageable)
+                : transactionRepository.findByPayerIdAndStatus(userId, status, pageable);
     }
+
+    // =========================
+    // HELPERS
+    // =========================
 
     private PaymentTransaction saveTransaction(
             Long rideId,
@@ -191,17 +197,30 @@ public class PaymentService {
             PaymentStatus status
     ) {
 
-        PaymentTransaction transaction = new PaymentTransaction();
+        PaymentTransaction tx = new PaymentTransaction();
+        tx.setRideId(rideId);
+        tx.setPayerId(payerId);
+        tx.setDriverId(driverId);
+        tx.setAmount(amount);
+        tx.setStatus(status);
+        tx.setTransactionReference(UUID.randomUUID().toString());
+        tx.setCreatedAt(LocalDateTime.now());
 
-        transaction.setRideId(rideId);
-        transaction.setPayerId(payerId);
-        transaction.setDriverId(driverId);
-        transaction.setAmount(amount);
-        transaction.setStatus(status);
-        transaction.setTransactionReference(UUID.randomUUID().toString());
-        transaction.setCreatedAt(LocalDateTime.now());
+        return transactionRepository.save(tx);
+    }
 
-        return transactionRepository.save(transaction);
+    private PaymentResponse buildResponse(PaymentTransaction tx, Double fare) {
+
+        PaymentResponse res = new PaymentResponse();
+        res.setRideId(tx.getRideId());
+        res.setPayerId(tx.getPayerId());
+        res.setDriverId(tx.getDriverId());
+        res.setAmount(fare);
+        res.setStatus(tx.getStatus().name());
+        res.setMessage("Payment Successful");
+        res.setTransactionReference(tx.getTransactionReference());
+
+        return res;
     }
 
     private Double fetchRideFare(Long rideId) {

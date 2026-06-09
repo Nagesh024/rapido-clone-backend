@@ -2,35 +2,38 @@ package com.rapido.rideservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // ❌ CSRF disabled for APIs
+            // Disable CSRF for REST APIs (important for curl/Postman)
             .csrf(csrf -> csrf.disable())
 
-            // ❌ Stateless REST APIs
-            .sessionManagement(session ->
+            // No session (microservice style)
+            .sessionManagement(session -> 
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // 🔐 SECURITY RULES
+            // Authorization rules
             .authorizeHttpRequests(auth -> auth
+                // allow actuator (optional)
+                .requestMatchers("/actuator/**").permitAll()
 
-                // public endpoints
-                .requestMatchers("/api/rides/health").permitAll()
+                // allow all ride APIs (YOUR CASE)
+                .requestMatchers("/rides/**").permitAll()
+                .requestMatchers("/rides/matching/**").permitAll()
 
-                // secure all ride APIs
-                .requestMatchers("/api/rides/**").authenticated()
-
-                .anyRequest().denyAll()
+                // fallback
+                .anyRequest().authenticated()
             );
 
         return http.build();

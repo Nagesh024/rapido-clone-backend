@@ -1,32 +1,24 @@
 package com.rapido.rideservice.dto;
 
-import jakarta.validation.constraints.NotNull;
-
 public class RideRequestDTO {
 
-    @NotNull(message = "RiderId is required")
-    private Long riderId;
+    private String userId;
 
-    @NotNull(message = "Pickup latitude is required")
     private Double pickupLatitude;
-
-    @NotNull(message = "Pickup longitude is required")
     private Double pickupLongitude;
 
-    @NotNull(message = "Drop latitude is required")
     private Double dropLatitude;
-
-    @NotNull(message = "Drop longitude is required")
     private Double dropLongitude;
 
-    public RideRequestDTO() {}
-
-    public Long getRiderId() {
-        return riderId;
+    public RideRequestDTO() {
     }
 
-    public void setRiderId(Long riderId) {
-        this.riderId = riderId;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Double getPickupLatitude() {
