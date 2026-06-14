@@ -1,0 +1,33 @@
+package com.rapido.driverservice.config;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.util.backoff.FixedBackOff;
+
+@Configuration
+public class KafkaErrorHandlerConfig {
+
+    @Bean
+    public DefaultErrorHandler errorHandler() {
+
+        // =========================
+        // RETRY CONFIG
+        // =========================
+        FixedBackOff fixedBackOff = new FixedBackOff(2000L, 3); 
+        // 2 sec delay, 3 retries
+
+        DefaultErrorHandler errorHandler = new DefaultErrorHandler(fixedBackOff);
+
+        // =========================
+        // DLQ LOGGING
+        // =========================
+        errorHandler.setRetryListeners((record, ex, deliveryAttempt) -> {
+            System.out.println("🔥 Retry Attempt: " + deliveryAttempt);
+            System.out.println("❌ Failed Record: " + record.value());
+        });
+
+        return errorHandler;
+    }
+}
