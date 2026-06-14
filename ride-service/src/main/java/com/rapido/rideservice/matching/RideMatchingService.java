@@ -4,6 +4,7 @@ import com.rapido.rideservice.dto.RideRequestDTO;
 import com.rapido.rideservice.dto.RideResponseDTO;
 import com.rapido.rideservice.entity.Driver;
 import com.rapido.rideservice.geospatial.GeoSpatialService;
+import com.rapido.rideservice.metrics.RideMetricsService;
 import com.rapido.rideservice.repository.DriverRepository;
 import com.rapido.rideservice.scoring.DriverScoringService;
 import com.rapido.rideservice.surge.SurgePricingService;
@@ -20,6 +21,9 @@ import java.util.List;
 
 @Service
 public class RideMatchingService {
+
+    @Autowired
+    private RideMetricsService rideMetricsService;
 
     @Autowired
     private GeoSpatialService geoSpatialService;
@@ -42,6 +46,8 @@ public class RideMatchingService {
     @Transactional
     public RideResponseDTO requestRide(RideRequestDTO request) {
 
+        rideMetricsService.incrementRideRequests();
+
         List<Driver> nearbyDrivers =
                 geoSpatialService.findNearbyDrivers(
                         request.getPickupLatitude(),
@@ -50,6 +56,7 @@ public class RideMatchingService {
                 );
 
         if (nearbyDrivers.isEmpty()) {
+            rideMetricsService.incrementRideFailure();
             throw new RuntimeException("No drivers available nearby");
         }
 
@@ -73,19 +80,18 @@ public class RideMatchingService {
 
         Driver lockedDriver =
                 driverRepository.lockDriverById(bestDriver.getId())
-                        .orElseThrow(() ->
-                                new RuntimeException("Driver not found"));
+                        .orElseThrow(() -> {
+                            rideMetricsService.incrementRideFailure();
+                            return new RuntimeException("Driver not found");
+                        });
 
         if (!lockedDriver.getAvailable()) {
+            rideMetricsService.incrementRideFailure();
             throw new RuntimeException("Driver already allocated");
         }
 
         lockedDriver.setAvailable(false);
-
-        lockedDriver.setCurrentLoad(
-                lockedDriver.getCurrentLoad() + 1
-        );
-
+        lockedDriver.setCurrentLoad(lockedDriver.getCurrentLoad() + 1);
         driverRepository.save(lockedDriver);
 
         double distanceKm =
@@ -119,11 +125,9 @@ public class RideMatchingService {
                         distanceKm
                 );
 
-        RideResponseDTO response =
-                new RideResponseDTO();
+        RideResponseDTO response = new RideResponseDTO();
 
         response.setMessage("Driver matched successfully");
-
         response.setDriverId(lockedDriver.getId());
         response.setEstimatedDistance(distanceKm);
         response.setDriverScore(driverScore);
@@ -131,32 +135,19 @@ public class RideMatchingService {
         response.setEstimatedFare(estimatedFare);
         response.setEstimatedEtaMinutes(etaMinutes);
 
+        rideMetricsService.incrementRideSuccess();
+
         return response;
     }
 
-    public List<Driver> nearbyDrivers(
-            double lat,
-            double lng
-    ) {
-
-        return geoSpatialService.findNearbyDrivers(
-                lat,
-                lng,
-                5000
-        );
+    public List<Driver> nearbyDrivers(double lat, double lng) {
+        return geoSpatialService.findNearbyDrivers(lat, lng, 5000);
     }
 
-    public double surgePreview(
-            double lat,
-            double lng
-    ) {
+    public double surgePreview(double lat, double lng) {
 
         int nearbyDrivers =
-                geoSpatialService.findNearbyDrivers(
-                        lat,
-                        lng,
-                        5000
-                ).size();
+                geoSpatialService.findNearbyDrivers(lat, lng, 5000).size();
 
         return surgePricingService.calculateSurgeMultiplier(
                 nearbyDrivers,

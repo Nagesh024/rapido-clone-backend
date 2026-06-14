@@ -1,0 +1,25 @@
+containers:
+  - name: admin-service
+    image: admin-service:otel
+    imagePullPolicy: IfNotPresent
+
+    ports:
+      - containerPort: 8088
+
+    env:
+      - name: SPRING_PROFILES_ACTIVE
+        value: "prod"
+
+    livenessProbe:
+      httpGet:
+        path: /actuator/health
+        port: 8088
+      initialDelaySeconds: 40
+      periodSeconds: 10
+
+    readinessProbe:
+      httpGet:
+        path: /actuator/health
+        port: 8088
+      initialDelaySeconds: 30
+      periodSeconds: 5
