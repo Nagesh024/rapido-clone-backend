@@ -1,25 +1,24 @@
 package com.rapido.rideservice.dto;
 
 public class RideRequestDTO {
-	private Long riderId;
 
-    public Long getRiderId() {
-		return riderId;
-	}
+    private String userId;
 
-	public void setRiderId(Long riderId) {
-		this.riderId = riderId;
-	}
-
-	private Double pickupLatitude;
-
+    private Double pickupLatitude;
     private Double pickupLongitude;
 
     private Double dropLatitude;
-
     private Double dropLongitude;
 
     public RideRequestDTO() {
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Double getPickupLatitude() {
