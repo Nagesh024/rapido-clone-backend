@@ -2,10 +2,11 @@ spring:
   application:
     name: auth-service
 
+  spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:rapido_db}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:Nagesh2425}
+    url: jdbc:postgresql://localhost:5432/rapido_security_db
+    username: postgres
+    password: Nagesh2425
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -23,7 +24,7 @@ eureka:
   client:
     enabled: true
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 management:
   endpoint:
