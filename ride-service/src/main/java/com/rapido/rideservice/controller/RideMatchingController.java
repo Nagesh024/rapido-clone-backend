@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rides")
+@RequestMapping("/rides/matching")
 public class RideMatchingController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class RideMatchingController {
         return "Current surge multiplier: " + surge;
     }
 
-    @PostMapping("/request")
+    @PostMapping("/match-request")   // ❗ CHANGE THIS
     public RideResponseDTO requestRide(@RequestBody RideRequestDTO request) {
         return rideMatchingService.requestRide(request);
     }

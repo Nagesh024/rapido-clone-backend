@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: admin-service-ingress
+  namespace: rapido-prod
+
+spec:
+  ingressClassName: nginx
+
+  rules:
+    - host: admin.rapido.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 80

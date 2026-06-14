@@ -5,7 +5,6 @@ import com.rapido.authservice.dto.LoginRequest;
 import com.rapido.authservice.dto.RegisterRequest;
 import com.rapido.authservice.service.AuthService;
 import jakarta.validation.Valid;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,25 +17,24 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-    
-    
 
     @PostMapping("/register")
     public ApiResponse<Object> register(@Valid @RequestBody RegisterRequest request) {
         return authService.register(request);
     }
+
     @PostMapping("/login")
-    public ApiResponse<Object> login(@RequestBody LoginRequest request) {
+    public ApiResponse<Object> login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
     }
+
     @GetMapping("/profile")
     public ApiResponse<Object> profile() {
         return new ApiResponse<>(true, "Profile accessed successfully", "Protected user profile");
     }
-    
+
     @GetMapping("/user/profile")
     public String profile(Authentication auth) {
         return auth.getName();
     }
-    
 }
