@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rapido-config
+  namespace: rapido-region-a
+
+data:
+  REGION: region-a
+  CLUSTER_NAME: rapido-primary-cluster
+  ACTIVE_REGION: "true"

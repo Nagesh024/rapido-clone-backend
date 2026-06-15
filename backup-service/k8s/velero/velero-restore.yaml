@@ -1,0 +1,6 @@
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: rapido-restore
+spec:
+  backupName: rapido-backup

@@ -1,0 +1,20 @@
+{
+  "title": "DR Alert Dashboard",
+  "panels": [
+    {
+      "title": "Region Down"
+    },
+    {
+      "title": "Replication Lag"
+    },
+    {
+      "title": "Backup Failure"
+    },
+    {
+      "title": "High Error Rate"
+    },
+    {
+      "title": "Recovery Failure"
+    }
+  ]
+}

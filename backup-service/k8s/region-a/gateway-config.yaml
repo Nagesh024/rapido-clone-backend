@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: gateway-config
+  namespace: rapido-region-a
+
+data:
+  ACTIVE_REGION: region-a
+  REGION_STATUS: HEALTHY

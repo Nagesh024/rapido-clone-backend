@@ -1,0 +1,8 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: rapido-backup
+spec:
+  includedNamespaces:
+    - region-a
+    - region-b

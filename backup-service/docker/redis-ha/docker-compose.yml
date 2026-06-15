@@ -1,0 +1,19 @@
+services:
+
+  redis-master:
+    image: redis:7
+    container_name: redis-master
+    ports:
+      - "6379:6379"
+
+  redis-replica:
+    image: redis:7
+    container_name: redis-replica
+    ports:
+      - "6380:6379"
+
+  redis-sentinel:
+    image: redis:7
+    container_name: redis-sentinel
+    ports:
+      - "26379:26379"

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: ride-service
+  namespace: rapido-region-b
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: ride-service
+
+  template:
+    metadata:
+      labels:
+        app: ride-service
+
+    spec:
+      containers:
+      - name: ride-service
+
+        image: rapido/ride-service:latest
+
+        ports:
+        - containerPort: 8082
+
+        envFrom:
+        - configMapRef:
+            name: rapido-config
+
+        - secretRef:
+            name: rapido-secret

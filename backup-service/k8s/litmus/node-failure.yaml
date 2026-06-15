@@ -1,0 +1,8 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: rapido-node-failure
+spec:
+  appinfo:
+    appns: default
+    applabel: app=backup-service

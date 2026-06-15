@@ -1,0 +1,13 @@
+services:
+
+  kafka-a:
+    image: apache/kafka:latest
+    container_name: kafka-a
+    ports:
+      - "9092:9092"
+
+  kafka-b:
+    image: apache/kafka:latest
+    container_name: kafka-b
+    ports:
+      - "9093:9092"

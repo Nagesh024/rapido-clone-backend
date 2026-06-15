@@ -1,0 +1,20 @@
+{
+  "title": "Rapido DR Dashboard",
+  "panels": [
+    {
+      "title": "Region Health"
+    },
+    {
+      "title": "Replication Lag"
+    },
+    {
+      "title": "Backup Status"
+    },
+    {
+      "title": "Recovery Time"
+    },
+    {
+      "title": "Failed Services"
+    }
+  ]
+}

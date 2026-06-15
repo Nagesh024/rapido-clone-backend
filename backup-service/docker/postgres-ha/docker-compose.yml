@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+
+  postgres-primary:
+
+    image: postgres:16
+
+    container_name: postgres-primary
+
+    environment:
+      POSTGRES_DB: rapidodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+  postgres-replica:
+
+    image: postgres:16
+
+    container_name: postgres-replica
+
+    environment:
+      POSTGRES_DB: rapidodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5433:5432"
+
+    depends_on:
+      - postgres-primary

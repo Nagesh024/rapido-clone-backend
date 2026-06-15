@@ -1,0 +1,6 @@
+region: region-b
+
+cluster:
+  name: rapido-secondary-cluster
+
+replicaCount: 3
