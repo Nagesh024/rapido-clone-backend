@@ -1,0 +1,2 @@
+Id,EventType,Payload,CreatedAt
+1,RIDE_COMPLETED,{"rideId":300;"fare":400;"status":"COMPLETED"},2026-06-10T17:02:47.903401
