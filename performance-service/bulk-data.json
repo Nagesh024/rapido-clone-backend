@@ -1,0 +1,8 @@
+{ "index" : { "_index" : "rides" } }
+{ "rideId":1,"status":"COMPLETED","fare":150 }
+
+{ "index" : { "_index" : "rides" } }
+{ "rideId":2,"status":"COMPLETED","fare":220 }
+
+{ "index" : { "_index" : "rides" } }
+{ "rideId":3,"status":"CANCELLED","fare":0 }
