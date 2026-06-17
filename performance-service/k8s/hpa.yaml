@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 apiVersion: autoscaling/v2
 
 kind: HorizontalPodAutoscaler
@@ -25,4 +26,33 @@ spec:
 
       target:
         type: Utilization
+=======
+apiVersion: autoscaling/v2
+
+kind: HorizontalPodAutoscaler
+
+metadata:
+  name: performance-service-hpa
+  namespace: rapido-performance
+
+spec:
+
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: performance-service
+
+  minReplicas: 3
+  maxReplicas: 20
+
+  metrics:
+
+  - type: Resource
+
+    resource:
+      name: cpu
+
+      target:
+        type: Utilization
+>>>>>>> 7428535d3931939c46580f8662fc1028b5c7abd9
         averageUtilization: 70

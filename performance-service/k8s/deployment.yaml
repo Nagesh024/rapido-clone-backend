@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 apiVersion: apps/v1
 kind: Deployment
 
@@ -49,4 +50,57 @@ spec:
               port: 8080
 
             initialDelaySeconds: 30
+=======
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: performance-service
+  namespace: rapido-performance
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: performance-service
+
+  template:
+    metadata:
+      labels:
+        app: performance-service
+
+    spec:
+      containers:
+        - name: performance-service
+          image: performance-service:latest
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 8080
+
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+
+            initialDelaySeconds: 20
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+
+            initialDelaySeconds: 30
+>>>>>>> 7428535d3931939c46580f8662fc1028b5c7abd9
             periodSeconds: 15

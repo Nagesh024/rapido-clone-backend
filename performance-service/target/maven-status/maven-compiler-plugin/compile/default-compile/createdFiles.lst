@@ -1,0 +1,7 @@
+com\rapido\performanceservice\load\TrafficSimulator.class
+com\rapido\performanceservice\metrics\RideMetricsService.class
+com\rapido\performanceservice\load\MetricsCollector.class
+com\rapido\performanceservice\load\LoadConfig.class
+com\rapido\performanceservice\PerformanceServiceApplication.class
+com\rapido\performanceservice\config\AsyncConfig.class
+com\rapido\performanceservice\service\AsyncCommunicationService.class

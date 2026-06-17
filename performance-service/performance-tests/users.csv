@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 email,password
 user1@rapido.com,password
 user2@rapido.com,password
+=======
+email,password
+user1@rapido.com,password
+user2@rapido.com,password
+>>>>>>> 7428535d3931939c46580f8662fc1028b5c7abd9
 user3@rapido.com,password

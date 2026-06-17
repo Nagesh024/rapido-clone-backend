@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 { "index" : { "_index" : "rides" } }
 { "rideId":1,"status":"COMPLETED","fare":150 }
 
@@ -5,4 +6,13 @@
 { "rideId":2,"status":"COMPLETED","fare":220 }
 
 { "index" : { "_index" : "rides" } }
+=======
+{ "index" : { "_index" : "rides" } }
+{ "rideId":1,"status":"COMPLETED","fare":150 }
+
+{ "index" : { "_index" : "rides" } }
+{ "rideId":2,"status":"COMPLETED","fare":220 }
+
+{ "index" : { "_index" : "rides" } }
+>>>>>>> 7428535d3931939c46580f8662fc1028b5c7abd9
 { "rideId":3,"status":"CANCELLED","fare":0 }

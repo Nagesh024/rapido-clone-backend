@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 apiVersion: v1
 kind: Namespace
 metadata:
+=======
+apiVersion: v1
+kind: Namespace
+metadata:
+>>>>>>> 7428535d3931939c46580f8662fc1028b5c7abd9
   name: rapido-performance
