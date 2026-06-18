@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: cpu-test
+
+spec:
+
+  containers:
+
+    - name: cpu-test
+
+      image: nginx
+
+      resources:
+
+        requests:
+          cpu: "10"
+
+        limits:
+          cpu: "20"

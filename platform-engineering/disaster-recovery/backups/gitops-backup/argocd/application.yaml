@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: ride-service
+
+  namespace: argocd
+
+spec:
+
+  project: platform-project
+
+  source:
+
+    repoURL: https://github.com/company/platform-gitops.git
+
+    targetRevision: main
+
+    path: environments/dev/ride-service
+
+  destination:
+
+    server: https://kubernetes.default.svc
+
+    namespace: dev
+
+  syncPolicy:
+
+    automated:
+
+      prune: true
+
+      selfHeal: true
+
+    retry:
+
+      limit: 5
+
+      backoff:
+
+        duration: 5s
+
+        factor: 2
+
+        maxDuration: 3m

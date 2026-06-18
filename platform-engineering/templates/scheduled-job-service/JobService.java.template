@@ -1,0 +1,14 @@
+package {{package_name}};
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+@Service
+public class JobService {
+
+    @Scheduled(fixedRate = 60000)
+    public void execute() {
+
+        System.out.println("Job Running");
+    }
+}

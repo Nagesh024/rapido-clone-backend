@@ -1,0 +1,11 @@
+package com.rapido.platformengineering.dto;
+
+public record ServiceCatalogResponse(
+        Long id,
+        String serviceName,
+        String owner,
+        String repositoryUrl,
+        String environment,
+        String sla
+) {
+}

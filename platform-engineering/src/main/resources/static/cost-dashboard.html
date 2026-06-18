@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cost Visibility Dashboard</title>
+</head>
+<body>
+
+<h1>Cost Visibility Dashboard</h1>
+
+<div id="costs"></div>
+
+<script>
+
+fetch('/costs')
+.then(response => response.json())
+.then(data => {
+
+document.getElementById('costs').innerHTML = `
+<h3>Environment Cost: $${data.environmentCost}</h3>
+<h3>Service Cost: $${data.serviceCost}</h3>
+<h3>Cluster Cost: $${data.clusterCost}</h3>
+<h3>Database Cost: $${data.databaseCost}</h3>
+<h3>Team Cost: $${data.teamCost}</h3>
+`;
+
+});
+
+</script>
+
+</body>
+</html>

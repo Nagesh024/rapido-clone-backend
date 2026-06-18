@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"kubernetes","Source":"../../modules/kubernetes","Dir":"../../modules/kubernetes"},{"Key":"network","Source":"../../modules/network","Dir":"../../modules/network"},{"Key":"postgres","Source":"../../modules/postgres","Dir":"../../modules/postgres"}]}

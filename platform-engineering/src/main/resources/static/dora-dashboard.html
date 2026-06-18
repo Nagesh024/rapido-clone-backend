@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DORA Metrics Dashboard</title>
+</head>
+<body>
+
+<h1>DORA Metrics Dashboard</h1>
+
+<div id="metrics"></div>
+
+<script>
+
+fetch('/metrics/dora')
+.then(response => response.json())
+.then(data => {
+
+document.getElementById('metrics').innerHTML = `
+<h3>Deployments Per Day: ${data.deploymentsPerDay}</h3>
+<h3>Lead Time: ${data.leadTimeHours} Hours</h3>
+<h3>MTTR: ${data.mttrHours} Hours</h3>
+<h3>Change Failure Rate: ${data.changeFailureRate}%</h3>
+`;
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+
+kind: CronJob
+
+metadata:
+  name: daily-report-job
+
+spec:
+
+  schedule: "0 1 * * *"
+
+  jobTemplate:
+
+    spec:
+
+      template:
+
+        spec:
+
+          containers:
+
+            - name: report-generator
+
+              image: report-service:latest
+
+          restartPolicy: OnFailure

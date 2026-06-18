@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: platform-engineering
+
+spec:
+  selector:
+    app: platform-engineering
+
+  ports:
+    - port: 80
+      targetPort: 8088
+
+  type: ClusterIP

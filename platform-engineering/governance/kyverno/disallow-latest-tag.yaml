@@ -1,0 +1,35 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+
+metadata:
+  name: disallow-latest-tag
+
+spec:
+
+  validationFailureAction: Enforce
+
+  rules:
+
+    - name: no-latest
+
+      match:
+        any:
+          - resources:
+              kinds:
+                - Deployment
+
+      validate:
+
+        message: "latest image tag is forbidden"
+
+        pattern:
+
+          spec:
+
+            template:
+
+              spec:
+
+                containers:
+
+                  - image: "!*:latest"

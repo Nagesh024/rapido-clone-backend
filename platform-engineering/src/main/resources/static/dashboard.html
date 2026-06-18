@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monitoring Dashboard</title>
+</head>
+<body>
+
+<h1>Platform Monitoring Dashboard</h1>
+
+<div id="data"></div>
+
+<script>
+
+fetch('/monitoring/dashboard')
+.then(response => response.json())
+.then(data => {
+
+document.getElementById('data').innerHTML = `
+<h3>CPU Usage: ${data.cpuUsage}%</h3>
+<h3>Memory Usage: ${data.memoryUsage}%</h3>
+<h3>Latency: ${data.latency} ms</h3>
+<h3>Errors: ${data.errors}</h3>
+<h3>Deployments: ${data.deployments}</h3>
+`;
+
+});
+
+</script>
+
+</body>
+</html>

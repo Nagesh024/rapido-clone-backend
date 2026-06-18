@@ -1,0 +1,17 @@
+serviceName: ride-service
+
+replicas: 2
+
+image:
+  repository: ride-service
+  tag: latest
+
+resources:
+
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
+  limits:
+    cpu: 500m
+    memory: 1Gi

@@ -1,0 +1,6 @@
+{
+  "service_name": "sample-service",
+  "package_name": "com.company.sample",
+  "java_version": "17",
+  "port": "8080"
+}

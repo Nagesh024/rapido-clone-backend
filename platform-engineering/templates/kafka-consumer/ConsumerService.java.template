@@ -1,0 +1,16 @@
+package {{package_name}};
+
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ConsumerService {
+
+    @KafkaListener(
+            topics = "events",
+            groupId = "default-group")
+    public void consume(String payload) {
+
+        System.out.println(payload);
+    }
+}

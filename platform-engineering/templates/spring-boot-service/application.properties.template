@@ -1,0 +1,5 @@
+server.port={{port}}
+
+spring.application.name={{service_name}}
+
+management.endpoints.web.exposure.include=*
