@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: platform-green
+  namespace: green
+  labels:
+    app: platform-green
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: platform-green
+
+  template:
+    metadata:
+      labels:
+        app: platform-green
+
+    spec:
+      containers:
+      - name: platform-green
+        image: nginx:1.27.5
+
+        ports:
+        - containerPort: 80
+
+        securityContext:
+          privileged: false
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+
+          limits:
+            cpu: "200m"
+            memory: "256Mi"

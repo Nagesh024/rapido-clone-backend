@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: platform-blue
+  namespace: blue
+  labels:
+    app: platform-blue
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: platform-blue
+
+  template:
+    metadata:
+      labels:
+        app: platform-blue
+
+    spec:
+      containers:
+      - name: platform-blue
+        image: nginx:1.27.5
+
+        ports:
+        - containerPort: 80
+
+        securityContext:
+          privileged: false
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+
+          limits:
+            cpu: "200m"
+            memory: "256Mi"

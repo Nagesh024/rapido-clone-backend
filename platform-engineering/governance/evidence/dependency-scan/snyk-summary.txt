@@ -1,0 +1,19 @@
+Snyk Security Scan
+
+Organization: knagesh2424
+
+Dependencies Tested: 96
+
+Issues Found: 78
+
+Critical Vulnerabilities: Present
+High Vulnerabilities: Present
+Medium Vulnerabilities: Present
+
+Status:
+Remediation Required
+
+Recommendation:
+Upgrade Spring Boot, Spring Framework, Tomcat,
+PostgreSQL Driver, Flyway, SpringDoc OpenAPI
+during security remediation cycle.

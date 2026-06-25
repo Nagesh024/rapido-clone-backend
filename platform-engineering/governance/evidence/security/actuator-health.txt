@@ -1,0 +1,7 @@
+curl http://localhost:8088/actuator/health
+
+Result:
+
+{
+  "status":"UP"
+}

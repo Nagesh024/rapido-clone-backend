@@ -1,0 +1,189 @@
+
+Testing C:\Users\NAGESH RIDER 46\eclipse 123\platform-engineering...
+
+Tested 96 dependencies for known issues, found 77 issues, 77 vulnerable paths.
+
+
+Issues to fix by upgrading:
+
+  Upgrade io.micrometer:micrometer-registry-prometheus@1.13.6 to io.micrometer:micrometer-registry-prometheus@1.15.12 to fix
+  ✗ Allocation of Resources Without Limits or Throttling (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-IOMICROMETER-17260885] in io.micrometer:micrometer-core@1.13.6
+    introduced by io.micrometer:micrometer-registry-prometheus@1.13.6 > io.micrometer:micrometer-core@1.13.6
+
+  Upgrade org.flywaydb:flyway-core@10.10.0 to org.flywaydb:flyway-core@11.8.1 to fix
+  ✗ Allocation of Resources Without Limits or Throttling [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-15365924] in com.fasterxml.jackson.core:jackson-core@2.17.2
+    introduced by org.flywaydb:flyway-core@10.10.0 > com.fasterxml.jackson.dataformat:jackson-dataformat-toml@2.17.2 > com.fasterxml.jackson.core:jackson-core@2.17.2
+  ✗ Allocation of Resources Without Limits or Throttling [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-COMFASTERXMLJACKSONCORE-15907551] in com.fasterxml.jackson.core:jackson-core@2.17.2
+    introduced by org.flywaydb:flyway-core@10.10.0 > com.fasterxml.jackson.dataformat:jackson-dataformat-toml@2.17.2 > com.fasterxml.jackson.core:jackson-core@2.17.2
+
+  Upgrade org.postgresql:postgresql@42.7.4 to org.postgresql:postgresql@42.7.11 to fix
+  ✗ Allocation of Resources Without Limits or Throttling [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGPOSTGRESQL-16321668] in org.postgresql:postgresql@42.7.4
+    introduced by org.postgresql:postgresql@42.7.4
+  ✗ Incorrect Implementation of Authentication Algorithm [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGPOSTGRESQL-10343494] in org.postgresql:postgresql@42.7.4
+    introduced by org.postgresql:postgresql@42.7.4
+
+  Upgrade org.springdoc:springdoc-openapi-starter-webmvc-ui@2.6.0 to org.springdoc:springdoc-openapi-starter-webmvc-ui@2.8.10 to fix
+  ✗ Uncontrolled Recursion [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHECOMMONS-10734078] in org.apache.commons:commons-lang3@3.14.0
+    introduced by org.springdoc:springdoc-openapi-starter-webmvc-ui@2.6.0 > org.springdoc:springdoc-openapi-starter-webmvc-api@2.6.0 > org.springdoc:springdoc-openapi-starter-common@2.6.0 > io.swagger.core.v3:swagger-core-jakarta@2.2.22 > org.apache.commons:commons-lang3@3.14.0
+
+  Upgrade org.springframework.boot:spring-boot-starter-actuator@3.3.5 to org.springframework.boot:spring-boot-starter-actuator@3.5.12 to fix
+  ✗ Improper Input Validation [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-9804539] in org.springframework.boot:spring-boot-actuator-autoconfigure@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-actuator@3.3.5 > org.springframework.boot:spring-boot-actuator-autoconfigure@3.3.5
+  ✗ Authentication Bypass Using an Alternate Path or Channel [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-15701835] in org.springframework.boot:spring-boot-actuator-autoconfigure@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-actuator@3.3.5 > org.springframework.boot:spring-boot-actuator-autoconfigure@3.3.5
+  ✗ Authentication Bypass Using an Alternate Path or Channel [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-15701836] in org.springframework.boot:spring-boot-actuator@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-actuator@3.3.5 > org.springframework.boot:spring-boot-actuator-autoconfigure@3.3.5 > org.springframework.boot:spring-boot-actuator@3.3.5
+
+  Upgrade org.springframework.boot:spring-boot-starter-data-jpa@3.3.5 to org.springframework.boot:spring-boot-starter-data-jpa@3.5.15 to fix
+  ✗ Denial of Service (DoS) (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKDATA-17279540] in org.springframework.data:spring-data-commons@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-data-jpa@3.3.5 > org.springframework.data:spring-data-jpa@3.3.5 > org.springframework.data:spring-data-commons@3.3.5
+  ✗ Denial of Service (DoS) (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKDATA-17295727] in org.springframework.data:spring-data-commons@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-data-jpa@3.3.5 > org.springframework.data:spring-data-jpa@3.3.5 > org.springframework.data:spring-data-commons@3.3.5
+  ✗ Denial of Service (DoS) (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKDATA-17304742] in org.springframework.data:spring-data-commons@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-data-jpa@3.3.5 > org.springframework.data:spring-data-jpa@3.3.5 > org.springframework.data:spring-data-commons@3.3.5
+  ✗ Allocation of Resources Without Limits or Throttling (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKDATA-17308778] in org.springframework.data:spring-data-commons@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-data-jpa@3.3.5 > org.springframework.data:spring-data-jpa@3.3.5 > org.springframework.data:spring-data-commons@3.3.5
+
+  Upgrade org.springframework.boot:spring-boot-starter-test@3.3.5 to org.springframework.boot:spring-boot-starter-test@3.5.15 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254051] in org.springframework:spring-core@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-test@3.3.5 > org.springframework:spring-core@6.1.14
+  ✗ Allocation of Resources Without Limits or Throttling [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-16109618] in org.springframework:spring-core@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-test@3.3.5 > org.springframework:spring-core@6.1.14
+  ✗ Allocation of Resources Without Limits or Throttling (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17255206] in org.springframework:spring-core@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-test@3.3.5 > org.springframework:spring-core@6.1.14
+  ✗ Incorrect Authorization [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-12817817] in org.springframework:spring-core@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-test@3.3.5 > org.springframework:spring-core@6.1.14
+
+  Upgrade org.springframework.boot:spring-boot-starter-web@3.3.5 to org.springframework.boot:spring-boot-starter-web@3.5.15 to fix
+  ✗ HTTP Request Smuggling [Low Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-16109603] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection') [Low Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-15701755] in org.springframework:spring-web@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14
+  ✗ Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection') [Low Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-15701756] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ External Initialization of Trusted Variables or Data Stores [Low Severity][https://security.snyk.io/vuln/SNYK-JAVA-CHQOSLOGBACK-15062482] in ch.qos.logback:logback-core@1.5.11
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-starter-logging@3.3.5 > ch.qos.logback:logback-classic@1.5.11 > ch.qos.logback:logback-core@1.5.11
+  ✗ Improper Authorization [Low Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15307825] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Handling of Case Sensitivity [Low Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-10176071] in org.springframework:spring-context@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14 > org.springframework:spring-context@6.1.14
+  ✗ Server-side Request Forgery (SSRF) [Low Severity][https://security.snyk.io/vuln/SNYK-JAVA-CHQOSLOGBACK-8539865] in ch.qos.logback:logback-core@1.5.11
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-starter-logging@3.3.5 > ch.qos.logback:logback-classic@1.5.11 > ch.qos.logback:logback-core@1.5.11
+  ✗ Timing Attack [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-16643276] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Authorization [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-16690888] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Validation of Syntactic Correctness of Input [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-16691220] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Handling of Case Sensitivity [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-16691224] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Exposure of Private Personal Information to an Unauthorized Actor [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-16643269] in org.apache.tomcat.embed:tomcat-embed-websocket@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-websocket@10.1.31
+  ✗ HTTP Request Smuggling (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254109] in org.springframework:spring-web@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14
+  ✗ Session Fixation (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254128] in org.springframework:spring-web@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14
+  ✗ Cross-site Scripting (XSS) (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17255245] in org.springframework:spring-web@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14
+  ✗ Cross-site Scripting (XSS) (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254062] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ Open Redirect (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254121] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ Exposed Dangerous Method or Function (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17253570] in org.springframework:spring-expression@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14 > org.springframework:spring-expression@6.1.14
+  ✗ Insecure Temporary File (new) [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-17308346] in org.springframework.boot:spring-boot-autoconfigure@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-autoconfigure@3.3.5
+  ✗ Improper Encoding or Escaping of Output [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15989812] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Symlink Attack [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-16201011] in org.springframework.boot:spring-boot@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot@3.3.5
+  ✗ Open Redirect [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15990787] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ External Initialization of Trusted Variables or Data Stores [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-CHQOSLOGBACK-13169722] in ch.qos.logback:logback-core@1.5.11
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-starter-logging@3.3.5 > ch.qos.logback:logback-classic@1.5.11 > ch.qos.logback:logback-core@1.5.11
+  ✗ Improper Resource Shutdown or Release [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-13723930] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Authentication Bypass Using an Alternate Path or Channel [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-10365310] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Session Fixation [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-11798986] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ HTTP Response Splitting [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-10345766] in org.springframework:spring-web@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14
+  ✗ Improper Handling of Case Sensitivity [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-10264469] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Neutralization [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-9905136] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Neutralization of Special Elements [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-CHQOSLOGBACK-8539866] in ch.qos.logback:logback-core@1.5.11
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-starter-logging@3.3.5 > ch.qos.logback:logback-classic@1.5.11 > ch.qos.logback:logback-core@1.5.11
+  ✗ Improper Neutralization of Special Elements [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-CHQOSLOGBACK-8539867] in ch.qos.logback:logback-classic@1.5.11
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-starter-logging@3.3.5 > ch.qos.logback:logback-classic@1.5.11
+  ✗ Allocation of Resources Without Limits or Throttling [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-16643259] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Missing Release of Memory after Effective Lifetime (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17253520] in org.springframework:spring-web@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14
+  ✗ Directory Traversal (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254116] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ Direct Request ('Forced Browsing') (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254527] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ Allocation of Resources Without Limits or Throttling (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17254544] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ Inefficient Algorithmic Complexity (new) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-17253311] in org.springframework:spring-expression@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14 > org.springframework:spring-expression@6.1.14
+  ✗ Improper Authentication [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15989820] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Incomplete Cleanup [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-16109615] in org.springframework:spring-web@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14
+  ✗ Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG) [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-16191649] in org.springframework.boot:spring-boot@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot@3.3.5
+  ✗ Insecure Temporary File [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-16198880] in org.springframework.boot:spring-boot@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot@3.3.5
+  ✗ Improper Authentication [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15989808] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ HTTP Request Smuggling [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15990633] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Directory Traversal [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-15701845] in org.springframework:spring-webmvc@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-webmvc@6.1.14
+  ✗ Incorrect Authorization [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15307822] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Relative Path Traversal [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-13733966] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Resource Shutdown or Release [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-11799152] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Relative Path Traversal [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-12008931] in org.springframework:spring-beans@6.1.14
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework:spring-web@6.1.14 > org.springframework:spring-beans@6.1.14
+  ✗ Integer Overflow or Wraparound [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-10674391] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Allocation of Resources Without Limits or Throttling [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-10676855] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Allocation of Resources Without Limits or Throttling [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-10365122] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Untrusted Search Path [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-13746602] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Cleanup on Thrown Exception [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-9905132] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Path Equivalence [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-9396739] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Authentication [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-16691231] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Improper Validation of Certificate with Host Mismatch [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-16191022] in org.springframework.boot:spring-boot-autoconfigure@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-autoconfigure@3.3.5
+  ✗ Improper Validation of Certificate with Host Mismatch [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-16200231] in org.springframework.boot:spring-boot-autoconfigure@3.3.5
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter@3.3.5 > org.springframework.boot:spring-boot-autoconfigure@3.3.5
+  ✗ Improper Certificate Validation [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-15307781] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Time-of-check Time-of-use (TOCTOU) Race Condition [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-8523186] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+  ✗ Time-of-check Time-of-use (TOCTOU) Race Condition [Critical Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-8547999] in org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+    introduced by org.springframework.boot:spring-boot-starter-web@3.3.5 > org.springframework.boot:spring-boot-starter-tomcat@3.3.5 > org.apache.tomcat.embed:tomcat-embed-core@10.1.31
+
+
+
+Organization:      knagesh2424
+Package manager:   maven
+Target file:       pom.xml
+Project name:      com.platform:platform-engineering
+Open source:       no
+Project path:      C:\Users\NAGESH RIDER 46\eclipse 123\platform-engineering
+Licenses:          enabled
+
+

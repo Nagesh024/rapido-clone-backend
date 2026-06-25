@@ -1,12 +1,20 @@
 package com.rapido.platformengineering.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="audit_events")
+@Table(name = "audit_events")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,8 +34,23 @@ public class AuditEvent {
 
     private LocalDateTime createdAt;
 
-	public static Object builder() {
+	public void setEventType(String type) {
 		// TODO Auto-generated method stub
-		return null;
+		
+	}
+
+	public void setActor(String actor2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCreatedAt(LocalDateTime now) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setEventType1(String type) {
+		// TODO Auto-generated method stub
+		
 	}
 }

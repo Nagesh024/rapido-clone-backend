@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: platform-canary
+  namespace: canary
+  labels:
+    app: platform-canary
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: platform-canary
+
+  template:
+    metadata:
+      labels:
+        app: platform-canary
+
+    spec:
+      containers:
+      - name: platform-canary
+
+        image: nginx:1.27.5
+
+        ports:
+        - containerPort: 80
+
+        securityContext:
+          privileged: false
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+
+          limits:
+            cpu: "200m"
+            memory: "256Mi"

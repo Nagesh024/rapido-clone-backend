@@ -1,0 +1,25 @@
+OWASP Dependency Check Summary
+
+Dependencies Scanned: 102
+Unique Dependencies: 90
+
+Vulnerable Dependencies: 2
+Total Vulnerabilities: 36
+
+Affected Component:
+swagger-ui-5.17.14.jar
+
+Library:
+DOMPurify 3.1.4
+
+Highest Severity:
+MEDIUM
+
+Critical:
+0
+
+High:
+0
+
+Status:
+Conditional Pass
