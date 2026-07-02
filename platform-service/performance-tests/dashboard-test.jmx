@@ -1,0 +1,14 @@
+Threads:
+5000
+
+Ramp Up:
+180
+
+Loop Count:
+200
+
+HTTP Request
+
+GET
+
+http://localhost:8090/operations/dashboard

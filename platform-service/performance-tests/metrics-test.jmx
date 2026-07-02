@@ -1,0 +1,14 @@
+Threads:
+2000
+
+Ramp Up:
+120
+
+Loop Count:
+5000
+
+HTTP Request
+
+GET
+
+http://localhost:8090/operations/metrics

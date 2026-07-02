@@ -179,7 +179,7 @@ C --> P[Prometheus]
 
 D --> P
 
-E --> P
+E --> P-
 
 P --> G[Grafana]
 

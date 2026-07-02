@@ -1,0 +1,16 @@
+Thread Group
+
+Threads:
+1000
+
+Ramp Up:
+60
+
+Loop Count:
+100
+
+HTTP Request
+
+GET
+
+http://localhost:8090/alerts/correlation

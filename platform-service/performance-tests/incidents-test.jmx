@@ -1,0 +1,14 @@
+Threads:
+500
+
+Ramp Up:
+30
+
+Loop Count:
+1
+
+HTTP Request
+
+GET
+
+http://localhost:8090/operations/incidents

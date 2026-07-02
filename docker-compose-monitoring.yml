@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   prometheus:
     image: prom/prometheus
     container_name: rapido-prometheus
@@ -8,6 +9,19 @@ services:
       - "9090:9090"
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./sre-service/monitoring/alert-rules.yml:/etc/prometheus/alert-rules.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: rapido-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./sre-service/monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
 
   grafana:
     image: grafana/grafana

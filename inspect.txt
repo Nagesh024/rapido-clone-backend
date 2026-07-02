@@ -1,0 +1,258 @@
+[
+    {
+        "Id": "b4437132e4dd761a4e90db907628d52f90ea3b2bf5bd146e395de76d80b3c9c9",
+        "Created": "2026-06-06T15:54:46.900834481Z",
+        "Path": "/bin/prometheus",
+        "Args": [
+            "--config.file=/etc/prometheus/prometheus.yml",
+            "--storage.tsdb.path=/prometheus"
+        ],
+        "State": {
+            "Status": "restarting",
+            "Running": true,
+            "Paused": false,
+            "Restarting": true,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 2,
+            "Error": "",
+            "StartedAt": "2026-06-29T12:07:38.022336657Z",
+            "FinishedAt": "2026-06-29T12:07:38.408548424Z"
+        },
+        "Image": "sha256:e4254400b85610324913f0dc4acf92603d9984e7519414c5a12811aa6146acc3",
+        "ResolvConfPath": "/var/lib/docker/containers/b4437132e4dd761a4e90db907628d52f90ea3b2bf5bd146e395de76d80b3c9c9/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/b4437132e4dd761a4e90db907628d52f90ea3b2bf5bd146e395de76d80b3c9c9/hostname",
+        "HostsPath": "/var/lib/docker/containers/b4437132e4dd761a4e90db907628d52f90ea3b2bf5bd146e395de76d80b3c9c9/hosts",
+        "LogPath": "/var/lib/docker/containers/b4437132e4dd761a4e90db907628d52f90ea3b2bf5bd146e395de76d80b3c9c9/b4437132e4dd761a4e90db907628d52f90ea3b2bf5bd146e395de76d80b3c9c9-json.log",
+        "Name": "/rapido-prometheus",
+        "RestartCount": 457,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "C:\\Users\\NAGESH RIDER 46\\OneDrive\\Desktop\\rapido-clone-backend\\monitoring\\prometheus\\prometheus.yml:/etc/prometheus/prometheus.yml:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "rapido-clone-backend_default",
+            "PortBindings": {
+                "9090/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9090"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "C:\\Users\\NAGESH RIDER 46\\OneDrive\\Desktop\\rapido-clone-backend\\monitoring\\prometheus\\prometheus.yml",
+                "Destination": "/etc/prometheus/prometheus.yml",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "c4a364eea5cf6fa19a376c54e982f23a57a7207c055982b98f049868cb860cab",
+                "Source": "/var/lib/docker/volumes/c4a364eea5cf6fa19a376c54e982f23a57a7207c055982b98f049868cb860cab/_data",
+                "Destination": "/prometheus",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "b4437132e4dd",
+            "Domainname": "",
+            "User": "nobody",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "9090/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "--config.file=/etc/prometheus/prometheus.yml",
+                "--storage.tsdb.path=/prometheus"
+            ],
+            "Image": "prom/prometheus",
+            "Volumes": {
+                "/prometheus": {}
+            },
+            "WorkingDir": "/prometheus",
+            "Entrypoint": [
+                "/bin/prometheus"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "87f3c7af98963262070ea82b645dedac738e272504fb1519d4d9afd1b8324331",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:e4254400b85610324913f0dc4acf92603d9984e7519414c5a12811aa6146acc3",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "rapido-clone-backend",
+                "com.docker.compose.project.config_files": "C:\\Users\\NAGESH RIDER 46\\OneDrive\\Desktop\\rapido-clone-backend\\docker-compose-monitoring.yml",
+                "com.docker.compose.project.working_dir": "C:\\Users\\NAGESH RIDER 46\\OneDrive\\Desktop\\rapido-clone-backend",
+                "com.docker.compose.service": "prometheus",
+                "com.docker.compose.version": "5.1.4",
+                "io.prometheus.image.variant": "busybox",
+                "maintainer": "The Prometheus Authors \u003cprometheus-developers@googlegroups.com\u003e",
+                "org.opencontainers.image.authors": "The Prometheus Authors",
+                "org.opencontainers.image.description": "The Prometheus monitoring system and time series database",
+                "org.opencontainers.image.documentation": "https://prometheus.io/docs",
+                "org.opencontainers.image.licenses": "Apache License 2.0",
+                "org.opencontainers.image.source": "https://github.com/prometheus/prometheus",
+                "org.opencontainers.image.title": "Prometheus",
+                "org.opencontainers.image.url": "https://github.com/prometheus/prometheus",
+                "org.opencontainers.image.vendor": "Prometheus"
+            },
+            "StopTimeout": 1
+        },
+        "NetworkSettings": {
+            "SandboxID": "",
+            "SandboxKey": "",
+            "Ports": {},
+            "Networks": {
+                "rapido-clone-backend_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "rapido-prometheus",
+                        "prometheus"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "71d84cf488ddedfea8a4123922e38694b5e73dd074d19d22d30f4e6626b9b74b",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "MacAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "rapido-prometheus",
+                        "prometheus",
+                        "b4437132e4dd"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "digest": "sha256:387d460e3b15ec55d2837fc9275388a4730dbc8c0287926d3f662c5298ce7385",
+            "size": 2407,
+            "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+            }
+        }
+    }
+]
